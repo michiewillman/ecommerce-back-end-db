@@ -47,7 +47,9 @@ router.post("/", async (req, res) => {
       category_name: req.body.category_name,
     });
 
-    res.status(200).json(`${categoryData.category_name} has been added.`);
+    res
+      .status(200)
+      .json(`Category ${categoryData.category_name} has been created.`);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -56,15 +58,25 @@ router.post("/", async (req, res) => {
 // Update category in database
 router.put("/:id", async (req, res) => {
   try {
-    const categoryData = await Category.set({
-      where: {
-        id: req.params.id,
+    const categoryData = await Category.update(
+      {
+        category_name: req.body.category_name,
       },
-      category_name: req.body.category_name,
-    });
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    );
+
+    if (!categoryData) {
+      res.status(404).json({ message: "No category found with that id." });
+      return;
+    }
+
     await categoryData.save();
 
-    res.status(200).json(`${categoryData.category_name} has been updated`);
+    res.status(200).json(`Category has been updated.`);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -84,7 +96,7 @@ router.delete("/:id", async (req, res) => {
       return;
     }
 
-    res.status(200).json(`${categoryData.category_name} has been deleted:`);
+    res.status(200).json(`Category has been deleted.`);
   } catch (err) {
     res.status(500).json(err);
   }
