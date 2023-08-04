@@ -2,9 +2,23 @@
 
 ## Description
 
-This application is a working Express.js API that utilizes Sequelize to interact with a MySQL database.
+E-commerce plays a significant role within the electronics industry, as it empowers businesses and consumers alike to conveniently engage in online buying and selling of electronic products. Databases store user and product information and we often must interact with their data in our applications.
 
-E-commerce plays a significant role within the electronics industry, as it empowers businesses and consumers alike to conveniently engage in online buying and selling of electronic products.
+This application is a working REST API using Express.js that utilizes Sequelize to interact with a MySQL database. HTTP route requests handle retrieving, creating, updating and deleting fields in the database tables. Models were used to create table schema with key constraints & validation via JavaScript.
+
+Technologies & Key Concepts:
+
+- Node.js
+- REST api + HTTP routes
+- Modularization
+- Database schema creation, seeding & management
+
+Packages used in this application:
+
+- Express.js
+- Dotenv
+- MySQL2
+- Sequelize
 
 ## Table of Contents
 
@@ -38,22 +52,22 @@ Run MySQL in terminal, then enter your password.
 mysql -u root -p
 ```
 
-Source database schema file:
+Source database schema file to create database:
 
 ```bash
-source <path to schema.sql>
+source <db/schema.sql>
 ```
 
 Source database seeds:
 
 ```bash
-source <>
+npm run seed
 ```
 
-Close the MySQL terminal and run the application in node:
+Start the application:
 
 ```bash
-node index.js
+npm start
 ```
 
 ## Usage
