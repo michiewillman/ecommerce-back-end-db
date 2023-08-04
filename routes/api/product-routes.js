@@ -26,7 +26,6 @@ router.get("/", async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
-  // be sure to include its associated Category and Tag data
 });
 
 // Get one product
@@ -128,7 +127,6 @@ router.put("/:id", (req, res) => {
       return res.json(`Product ${req.body.id} has been updated.`);
     })
     .catch((err) => {
-      // console.log(err);
       res.status(400).json(err);
     });
 });
