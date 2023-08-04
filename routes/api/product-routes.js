@@ -7,6 +7,7 @@ const { Product, Category, Tag, ProductTag } = require("../../models");
 router.get("/", async (req, res) => {
   try {
     const productData = await Product.findAll({
+      // Include the Category model, as well as the Tag model through ProductTag since the data is not directly included
       include: [
         Category,
         {
@@ -31,9 +32,12 @@ router.get("/", async (req, res) => {
 // Get one product
 router.get("/:id", async (req, res) => {
   try {
-    const productData = await Product.findByPk(req.params.id, {
+    const productData = await Product.findOne({
+      where: {
+        id: req.params.id,
+      },
+      // Include the Category model, as well as the Tag model through ProductTag since the data is not directly included
       include: [
-        // Include the Category model, as well as the Tag model through ProductTag since the data is not directly included
         Category,
         {
           model: Tag,
@@ -47,11 +51,10 @@ router.get("/:id", async (req, res) => {
       return;
     }
 
-    res.status(200).json(categoryData);
+    res.status(200).json(productData);
   } catch (err) {
     res.status(500).json(err);
   }
-  // be sure to include its associated Category and Tag data
 });
 
 // Create a new product
