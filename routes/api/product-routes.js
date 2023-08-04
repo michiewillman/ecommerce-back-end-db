@@ -7,7 +7,13 @@ const { Product, Category, Tag, ProductTag } = require("../../models");
 router.get("/", async (req, res) => {
   try {
     const productData = await Product.findAll({
-      include: [{ model: Category }, { model: Tag }],
+      include: [
+        Category,
+        {
+          model: Tag,
+          through: ProductTag,
+        },
+      ],
     });
 
     if (!productData) {
@@ -26,7 +32,14 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const productData = await Product.findByPk(req.params.id, {
-      include: [{ model: Category }, { model: Tag }],
+      include: [
+        // Include the Category model, as well as the Tag model through ProductTag since the data is not directly included
+        Category,
+        {
+          model: Tag,
+          through: ProductTag,
+        },
+      ],
     });
 
     if (!productData) {
@@ -109,7 +122,7 @@ router.put("/:id", (req, res) => {
         });
       }
 
-      return res.json(product);
+      return res.json(`Product ${req.body.id} has been updated.`);
     })
     .catch((err) => {
       // console.log(err);
